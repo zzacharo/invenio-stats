@@ -8,6 +8,8 @@
 
 """Celery background tasks."""
 
+from warnings import warn
+
 from flask import current_app
 
 from .proxies import current_stats
@@ -29,6 +31,11 @@ def register_templates():
     """Register search templates for events."""
     if current_app.config["STATS_REGISTER_INDEX_TEMPLATES"]:
         return []
+    warn(
+        "Search templates are deprecated."
+        "In future releases, we will migrate to search index_templates.",
+        DeprecationWarning,
+    )
     return _collect_templates()
 
 
